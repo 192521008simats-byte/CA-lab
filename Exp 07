@@ -1,0 +1,29 @@
+LHLD 2050H
+XCHG              ; DE = multiplicand
+
+LHLD 2052H        ; HL = multiplier
+
+LXI B,0000H       ; BC = result
+
+LOOP:
+MOV A,L
+ORA H
+JZ DONE
+
+MOV A,C
+ADD E
+MOV C,A
+
+MOV A,B
+ADC D
+MOV B,A
+
+DCX H
+JMP LOOP
+
+DONE:
+MOV L,C
+MOV H,B
+SHLD 2054H
+
+HLT
