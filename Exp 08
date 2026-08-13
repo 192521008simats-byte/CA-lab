@@ -1,0 +1,35 @@
+LHLD 2050H
+XCHG              ; DE = dividend
+
+LHLD 2052H        ; HL = divisor
+
+LXI B,0000H       ; BC = quotient
+
+LOOP:
+MOV A,E
+SUB L
+MOV E,A
+
+MOV A,D
+SBB H
+MOV D,A
+
+JC DONE
+
+INX B
+JMP LOOP
+
+DONE:
+MOV A,C
+STA 2054H
+
+MOV A,B
+STA 2055H
+
+MOV A,E
+STA 2056H
+
+MOV A,D
+STA 2057H
+
+HLT
